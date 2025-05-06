@@ -13,7 +13,7 @@ class PointsModel extends Model
 
     public function geojson_points()
     {
-        $points_table = $this->select(DB::raw('st_asgeojson(geom) as geom, name, decsription, created_at, updated_at, image'))
+        $points_table = $this->select(DB::raw('id, st_asgeojson(geom) as geom, name, decsription, created_at, updated_at, image'))
             ->get();
 
         // Buat struktur GeoJSON
@@ -27,6 +27,7 @@ class PointsModel extends Model
                 'type' => 'Feature',
                 'geometry' => json_decode($p->geom), // Ubah string JSON menjadi objek
                 'properties' => [
+                    'id' => $p->id,
                     'name' => $p->name,
                     'decsription' => $p->decsription,
                     'created_at' => $p->created_at,
