@@ -2,50 +2,35 @@
 
 @section('content')
 
+<div>
     <table class="table table-striped">
 
-        <head>
+        <thead>
             <tr>
                 <th>No</th>
-                <th>Nama</th>
-                <th>Nim</th>
-                <th>Kelas</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Created at</th>
+                <th>Updated at</th>
             </tr>
 
+        </thead>
+        <tbody>
+            @foreach ($points as $p )
             <tr>
-                <td>1</td>
-                <td>Zahra Alifia</td>
-                <td>23/518296/SV/22946</td>
-                <td>PGWL A</td>
+                <td>{{ $p->id}}</td>
+                <td>{{ $p->name}}</td>
+                <td>{{ $p->decsription}}</td>
+                <td>
+                    <img src=" {{asset('storage/images/' . $p->image)}}" alt=""
+                    width="200" title="{{$p->image}}">
+                </td>
+                <td>{{ $p->created_at}}</td>
+                <td>{{ $p->updated_at}}</td>
             </tr>
-
-            <tr>
-                <td>2</td>
-                <td>Jisung Park</td>
-                <td>23/5*****/SV/2****</td>
-                <td>PGWL A</td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>Na Jaemin</td>
-                <td>23/5*****/SV/2****</td>
-                <td>PGWL A</td>
-            </tr>
-
-            <tr>
-                <td>4</td>
-                <td>Mark Lee</td>
-                <td>23/5*****/SV/2****</td>
-                <td>PGWL A</td>
-            </tr>
-
-            <tr>
-                <td>5</td>
-                <td>Jeno Lee</td>
-                <td>23/5*****/SV/2****</td>
-                <td>PGWL A</td>
-            </tr>
-        </head>
+            @endforeach
+        </tbody>
     </table>
+</div>
 @endsection

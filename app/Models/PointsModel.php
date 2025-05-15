@@ -41,4 +41,36 @@ class PointsModel extends Model
 
         return $geojson;
     }
+
+    public function geojson_point($id)
+    {
+        $points_table = $this->select(DB::raw('id, st_asgeojson(geom) as geom, name, decsription, created_at, updated_at, image'))
+        ->where('id', $id)
+        ->get();
+
+        // Buat struktur GeoJSON
+        $geojson = [
+            'type' => 'FeatureCollection',
+            'features' => [],
+        ];
+
+        foreach ($points_table as $p) {
+            $feature = [
+                'type' => 'Feature',
+                'geometry' => json_decode($p->geom), // Ubah string JSON menjadi objek
+                'properties' => [
+                    'id' => $p->id,
+                    'name' => $p->name,
+                    'decsription' => $p->decsription,
+                    'created_at' => $p->created_at,
+                    'updated_at' => $p->updated_at,
+                    'image' => $p->image,
+                ],
+            ];
+
+            array_push($geojson['features'], $feature);
+        }
+
+        return $geojson;
+    }
 }

@@ -94,7 +94,11 @@ class PointsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = [
+            'title' => 'Edit Point',
+            'id' => $id,
+        ];
+        return view('edit-point', $data);
     }
 
     /**
@@ -102,12 +106,68 @@ class PointsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // validate request
+        $request->validate(
+            [
+                'name' => 'required|unique:points_tables,name,' . $id,
+                'decsription' => 'required',
+                'geom_point' => 'required',
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ],
+            [
+                'name.required' => 'Name is required',
+                'name.unique' => 'Name already exists',
+                'decsription.required' => 'Decsription is required',
+                'geom_point.required' => 'Geometry point is required',
+            ]
+        );
+
+        // Create iage directory if not exists
+        if (!is_dir('storage/images')) {
+            mkdir('./storage/images', 0777);
+         }
+
+        // get old name file name
+        $old_image = $this->points->find($id)->image;
+
+        // Get image file
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name_image = time() . "_point." . strtolower($image->getClientOriginalExtension());
+            $image->move('storage/images', $name_image);
+
+            // delete old image file
+            if ($old_image !=null) {
+                if (file_exists('./storage/images/'. $old_image)) {
+            unlink('./storage/images/'.$old_image);
+            }
+        }
+
+          } else {
+            $name_image = $old_image;
+          }
+
+        $data = [
+            'geom' => $request->geom_point,
+            'name' => $request->name,
+            'decsription' => $request->decsription,
+            'image' => $name_image,
+        ];
+
+        // Create data
+        if (!$this->points->find($id)->update($data)) {
+            return redirect()->route('map')->with('error', 'Point failed to update');
+        }
+
+        // Redirect to map
+        return redirect()->route('map')->with('success', 'Point has been updated');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(string $id)
     {
         $imagefile =$this->points->find($id)->image;
