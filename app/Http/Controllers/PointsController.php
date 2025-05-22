@@ -70,6 +70,7 @@ class PointsController extends Controller
             'name' => $request->name,
             'decsription' => $request->decsription,
             'image' => $name_image,
+            'user_id' => auth()->user()->id,
         ];
 
         // Create data
@@ -122,7 +123,7 @@ class PointsController extends Controller
             ]
         );
 
-        // Create iage directory if not exists
+        // Create image directory if not exists
         if (!is_dir('storage/images')) {
             mkdir('./storage/images', 0777);
          }

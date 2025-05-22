@@ -13,8 +13,19 @@ class PointsModel extends Model
 
     public function geojson_points()
     {
-        $points_table = $this->select(DB::raw('id, st_asgeojson(geom) as geom, name, decsription, created_at, updated_at, image'))
+        $points_table = $this->select(DB::raw('
+        points_tables.id,
+        st_asgeojson(points_tables.geom) as geom,
+        points_tables.name,
+        points_tables.decsription,
+        points_tables.created_at,
+        points_tables.updated_at,
+        points_tables.image,
+        points_tables.user_id,
+        users.name as user_created'))
+            ->join('users', 'points_tables.user_id', '=', 'users.id')
             ->get();
+
 
         // Buat struktur GeoJSON
         $geojson = [
@@ -33,6 +44,8 @@ class PointsModel extends Model
                     'created_at' => $p->created_at,
                     'updated_at' => $p->updated_at,
                     'image' => $p->image,
+                    'user_created' => $p->user_created,
+                    'user_id' => $p->user_id,
                 ],
             ];
 
@@ -44,9 +57,10 @@ class PointsModel extends Model
 
     public function geojson_point($id)
     {
-        $points_table = $this->select(DB::raw('id, st_asgeojson(geom) as geom, name, decsription, created_at, updated_at, image'))
-        ->where('id', $id)
-        ->get();
+        $points_table = $this->select(DB::raw('id, st_asgeojson(points.geom) as geom, name, decsription,
+        created_at, updated_at, image'))
+            ->where('id', $id)
+            ->get();
 
         // Buat struktur GeoJSON
         $geojson = [

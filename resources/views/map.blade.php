@@ -217,15 +217,18 @@
                     "<br>" +
                     "<div class='row mt-4' >" +
                     "<div class='col-6 text-end'>" +
-                    "<a href='" + routeedit + "' class='btn-warning btn-lg'><i class='fa-solid fa-pen-to-square'></i></a>" +
+                    "<a href='" + routeedit +
+                    "' class='btn-warning btn-lg'><i class='fa-solid fa-pen-to-square'></i></a>" +
                     "</div>" +
                     " <div class='col-6'>" +
                     "<form method ='POST' action='" + routedelete + "'>" +
                     '@csrf' + '@method('DELETE')' +
+
                     "<button type='submit' class='btn btn-danger' onclick='return confirm(`Are you sure?`)' btn-sm'><i class='fa-solid fa-trash-can'></i></button>" +
                     "</form>" +
                     "</div>" +
-                    "</div>";
+                    "</div>" +
+                    "</div>" + "<br>" + "<p>Dibuat Oleh: " + feature.properties.user_created + "</p>";
 
                 layer.on({
                     click: function(e) {
@@ -260,13 +263,15 @@
                     "<br>" +
                     "<div class='row mt-4' >" +
                     "<div class='col-6 text-end'>" +
-                    "<a href='" + routeedit + "' class='btn-warning btn-lg'><i class='fa-solid fa-pen-to-square'></i></a>" +
+                    "<a href='" + routeedit +
+                    "' class='btn-warning btn-lg'><i class='fa-solid fa-pen-to-square'></i></a>" +
                     "</div>" +
                     " <div class='col-6'>" +
                     "<form method ='POST' action='" + routedelete + "'>" +
                     '@csrf' + '@method('DELETE')' +
                     "<button type='submit' class='btn btn-danger' onclick='return confirm(`Are you sure?`)' btn-sm'><i class='fa-solid fa-trash-can'></i></button>" +
-                    "</form>";
+                    "</form>" +
+                    "</div>" + "<br>" + "<p>Dibuat Oleh: " + feature.properties.user_created + "</p>";
 
                 layer.on({
                     click: function(e) {
@@ -304,13 +309,15 @@
                     "<br>" +
                     "<div class='row mt-4' >" +
                     "<div class='col-6 text-end'>" +
-                    "<a href='" + routeedit + "' class='btn-warning btn-lg'><i class='fa-solid fa-pen-to-square'></i></a>" +
+                    "<a href='" + routeedit +
+                    "' class='btn-warning btn-lg'><i class='fa-solid fa-pen-to-square'></i></a>" +
                     "</div>" +
                     " <div class='col-6'>" +
                     "<form method ='POST' action='" + routedelete + "'>" +
                     '@csrf' + '@method('DELETE')' +
                     "<button type='submit' class='btn btn-danger' onclick='return confirm(`Are you sure?`)' btn-sm'><i class='fa-solid fa-trash-can'></i></button>" +
-                    "</form>";
+                    "</form>" +
+                    "</div>" + "<br>" + "<p>Dibuat Oleh: " + feature.properties.user_created + "</p>";
 
                 layer.on({
                     click: function(e) {
