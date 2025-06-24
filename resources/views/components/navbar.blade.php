@@ -1,12 +1,15 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <i class="fa-solid fa-earth-americas"></i> {{ $title }}
+            <i class="fa-solid fa-building-shield"></i> {{ $title }}
         </a>
+
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
@@ -27,20 +30,12 @@
                 </li>
 
                 @auth
-                    <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa-solid fa-database"></i> Data
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('api.points') }}" target="_blank">
+                            <i class="fa-solid fa-database"></i> Data Point
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ route('api.points') }}" target="_blank">Points</a></li>
-                            <li><a class="dropdown-item" href="{{ route('api.polylines') }}" target="_blank">Polylines</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ route('api.polygons') }}" target="_blank">Polygons</a>
-                            </li>
-                        </ul>
                     </li>
-                    
+
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
